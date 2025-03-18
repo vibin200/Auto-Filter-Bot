@@ -31,14 +31,11 @@ jobs:
       - name: Install step
         run: "sudo docker build -t auto-filter-bot ."
 
-      - name: Build step
-        run: "sudo docker run -d -p 80:80 --name Auto-Filter-Bot auto-filter-bot"
-
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "vibin200-auto-filter-29"
-          entrypoint: ""
+          entrypoint: "ENTRYPOINT ["python", "app.py"]"
           root: ""
           
           
