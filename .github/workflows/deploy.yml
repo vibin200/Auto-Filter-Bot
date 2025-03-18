@@ -35,7 +35,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "vibin200-auto-filter-29"
-          entrypoint: "ENTRYPOINT ["python", "app.py"]"
-          root: ""
+          entrypoint: "CMD ["python", "bot.py"]"
+          root: "Dockerfile,requirements.txt,bot.py"
           
           
