@@ -1,33 +1,41 @@
-name: Deploy Auto-Filter-Bot
-
+name: Deploy
 on:
   push:
-    branches:
-      - main # Trigger this workflow on pushes to the main branch
+    branches: main
+  pull_request:
+    branches: main
 
 jobs:
-  build:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
+
     steps:
-      # Step 1: Check out the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Clone repository
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
         with:
-          python-version: '3.11'
+          deno-version: v1.x
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
-      # Step 4: Build Docker image
-      - name: Build Docker image
-        run: sudo docker build -t auto-filter-bot .
+      - name: Install step
+        run: "sudo docker build -t auto-filter-bot ."
 
-      # Step 5: Deploy the application
-      - name: Run Docker container
-        run: sudo docker run -d -p 80:80 --name Auto-Filter-Bot auto-filter-bot
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "vibin200-auto-filter-29"
+          entrypoint: "CMD ["python", "bot.py"]"
+          root: "Ensure your project files (Dockerfile, requirements.txt, and bot.py) are in the root directory."
+          
+          
