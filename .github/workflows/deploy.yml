@@ -23,14 +23,22 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install step
+        run: "RUN pip install -r requirements.txt"
+
       - name: Build step
         run: "sudo docker build -t auto-filter-bot ."
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "vibin200-auto-filter-29"
+          project: "vibin200-auto-filter-25"
           entrypoint: "CMD ["python", "bot.py"]"
-          root: "Dockerfile,requirements.txt,bot.py"
+          root: " /Auto-Filter-Bot"
           
           
