@@ -1,25 +1,33 @@
-name: Your Workflow Name
+name: Deploy Auto-Filter-Bot
 
 on:
   push:
     branches:
-      - main
+      - main # Trigger this workflow on pushes to the main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
+      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: pip install -r requirements.txt
-      
-      - name: Run the app
-        run: python bot.py
+
+      # Step 4: Build Docker image
+      - name: Build Docker image
+        run: sudo docker build -t auto-filter-bot .
+
+      # Step 5: Deploy the application
+      - name: Run Docker container
+        run: sudo docker run -d -p 80:80 --name Auto-Filter-Bot auto-filter-bot
