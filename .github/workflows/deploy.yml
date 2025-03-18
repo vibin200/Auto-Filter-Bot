@@ -30,7 +30,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "vibin200-auto-filter-29"
-          entrypoint: "sudo docker run -d -p 80:80 --name Auto-Filter-Bot auto-filter-bot"
-          root: ""
+          entrypoint: "CMD ["python", "bot.py"]"
+          root: "Dockerfile,requirements.txt,bot.py"
           
           
