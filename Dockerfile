@@ -6,4 +6,6 @@ COPY . /Auto-Filter-Bot
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "bot.py"]
+COPY . .
+
+CMD ["python3", "bot.py"]
