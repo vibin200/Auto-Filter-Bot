@@ -51,7 +51,7 @@ if len(INDEX_CHANNELS) == 0:
 AUTH_CHANNEL = [int(auth_channels) for auth_channels in environ.get('AUTH_CHANNEL', '-1001558905686').split()]
 if len(AUTH_CHANNEL) == 0:
     print('Info - AUTH_CHANNEL is empty')
-LOG_CHANNEL = environ.get('LOG_CHANNEL', ' -1002640673339')
+LOG_CHANNEL = environ.get('LOG_CHANNEL', '-1002640673339')
 if len(LOG_CHANNEL) == 0:
     print('Error - LOG_CHANNEL is missing, exiting now')
     exit()
@@ -119,7 +119,7 @@ if len(BIN_CHANNEL) == 0:
     exit()
 else:
     BIN_CHANNEL = int(BIN_CHANNEL)
-URL = environ.get("URL", "https://t.me/TamilMobAutofilterbot")
+URL = environ.get("URL", "https://t.me/TamilMobAutofilterbot/")
 if len(URL) == 0:
     print('Error - URL is missing, exiting now')
     exit()
